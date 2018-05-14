@@ -6,7 +6,7 @@ prepare-docker:
 
 nginx: prepare-docker
 	docker run --rm -v $(CURDIR)/pkg:/tmp/pkg $(NAME) \
-		cp -r /root/rpmbuild/RPMS/* /tmp/pkg/
+		cp -r /root/rpmbuild/RPMS/x86_64/ /tmp/pkg/
 
 clean:
 	docker ps -qa --filter ancestor=nginx-builder | \

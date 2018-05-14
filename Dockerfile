@@ -26,11 +26,10 @@ RUN yum install -y \
     rpm-build
 RUN yum clean all
 
-RUN mkdir /root/nginx-build
-WORKDIR /root/nginx-build
 ENV SRPMFILE nginx.src.rpm
 RUN wget http://nginx.org/packages/rhel/7/SRPMS/nginx-1.10.1-1.el7.ngx.src.rpm -O $SRPMFILE
-RUN rpmbuild --rebuild $SRPMFILE
+RUN rpm -ivh $SRPMFILE
+RUN rpmbuild -ba /root/rpmbuild/SPECS/nginx.spec
 RUN ls -lh /root/rpmbuild/RPMS/*
 VOLUME ["/root/nginx-build/RPMS/"]
 CMD ["/bin/bash"]
